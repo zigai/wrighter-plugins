@@ -1,0 +1,5 @@
+wrighter==0.1.1
+stdl>=0.4.1
+jsonschema==4.17.3
+jsonpath-ng==1.5.3
+playwright>=1.29.0

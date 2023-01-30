@@ -1,1 +1,1 @@
-# wrighter-plugins
+# Wrighter plugins
