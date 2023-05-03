@@ -1,6 +1,4 @@
 from playwright.sync_api import Page, Route
-from stdl.str_u import FG, colored, BG
-
 from wrighter.plugin import Plugin, context
 
 DEFAULT_RESOURCE_EXCLUSIONS = ["image", "stylesheet", "media", "font", "other"]
@@ -23,16 +21,12 @@ class ResourceBlocker(Plugin):
 
         super().__init__()
 
-    def log(self, url: str):
-        print(f"{colored('BLOCKED',background= BG.LIGHT_RED)} {url}")
-
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(url_pattern={self.url_pattern}, blocked_resources={self.blocked_resoruces})"
 
     def handler(self, route: Route):
         if route.request.resource_type in self.blocked_resoruces:
-            if self.verbose:
-                self.log(route.request.url)
+            self.logger.info(f"BLOCKED {route.request.url}")
             return route.abort()
         return route.continue_()
 

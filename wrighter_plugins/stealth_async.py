@@ -12,6 +12,7 @@ class StealthAsync(Plugin):
 
     @context("on", "page")
     async def context_on_page(self, page: Page) -> None:
+        self.logger.debug(f"Applied stealth to {page}")
         await stealth_async(page, config=self.stealth_config)
 
 

@@ -12,6 +12,7 @@ class StealthSync(Plugin):
 
     @context("on", "page")
     def context_on_page(self, page: Page) -> None:
+        self.logger.debug(f"Applied stealth to {page}")
         stealth_sync(page, config=self.stealth_config)
 
 
