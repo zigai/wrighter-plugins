@@ -46,6 +46,12 @@ class JsonScraper(Plugin):
             data: dict = response.json()
         except (JSONDecodeError, UnicodeDecodeError):
             return
+        except Exception as e:
+            self.logger.debug(
+                f"Unknown exception occured while parsing response as JSON", exception=e
+            )
+            return
+
         if not self.is_schema_valid(data):
             self.logger.debug(f"JSON response from '{response.url}' doesn't match provided schema")
             return
