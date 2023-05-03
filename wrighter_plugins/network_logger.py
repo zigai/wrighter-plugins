@@ -1,4 +1,6 @@
+from stdl.fs import bytes_readable
 from stdl.str_u import BG, FG, ST, colored
+from tabulate import tabulate
 from wrighter.plugin import Plugin, Request, Response, page
 
 HTTP_STATUS_COLORS = {"2": BG.GREEN, "3": BG.BLUE, "4": BG.RED, "5": BG.YELLOW}
@@ -16,6 +18,7 @@ class NetworkLogger(Plugin):
         self,
         response_codes: list[int] | None = None,
         requests: bool = True,
+        tablefmt: str = "plain",
     ) -> None:
         """
         Args:
@@ -25,23 +28,49 @@ class NetworkLogger(Plugin):
         """
         self.response_codes = response_codes or list(range(100, 600))
         self.requests = requests
+        self.tablefmt = tablefmt
         super().__init__()
 
     @page("on", "response")
     def page_on_response(self, response: Response) -> None:
         if response.status not in self.response_codes:
             return
+
         status = colorize_status_code(response.status)
-        print(f"{colored('<<', style=ST.BOLD)} {status} | {response.url}")
+        try:
+            body = response.body()
+        except:
+            body = ""
+        data = [
+            [
+                colored("<<", style=ST.BOLD),
+                status,
+                response.status_text,
+                response.url,
+                colored(
+                    bytes_readable(len(body)) if body else "No body",
+                    color=FG.BLACK,
+                    background=BG.WHITE,
+                ),
+            ]
+        ]
+        table = tabulate(data, tablefmt=self.tablefmt)
+        print(table)
 
     @page("on", "request")
     def page_on_request(self, request: Request) -> None:
-
         if not self.requests:
             return
-        print(
-            f"{colored('>>', style=ST.BOLD)} {colored(request.method,FG.BLACK,BG.WHITE)} | {request.url}"
-        )
+
+        data = [
+            [
+                ">>",
+                colored(request.method, style=ST.BOLD, background=BG.WHITE, color=FG.BLACK),
+                request.url,
+            ]
+        ]
+        table = tabulate(data, tablefmt=self.tablefmt)
+        print(table)
 
 
 __all__ = ["NetworkLogger"]
