@@ -37,5 +37,8 @@ setup(
         "playwright plugins",
         "web scraping",
         "browser automation plugins",
+        "JSON scraper",
+        "resource blocker",
+        "playwright stealth",
     ],
 )
