@@ -5,7 +5,15 @@
 [![Downloads](https://static.pepy.tech/badge/wrighter-plugins)](https://pepy.tech/project/wrighter-plugins)
 [![license](https://img.shields.io/github/license/zigai/wrighter-plugins.svg)](https://github.com/zigai/wrighter-plugins/blob/main/LICENSE)
 
-Plugins for [wrighter](https://github.com/zigai/wrighter)
+Official plugins for [Wrighter](https://github.com/zigai/wrighter)
+
+- Resource blocker
+- Network logger
+- JSON scraper
+- Stealth
+- and more ...
+
+
 # Installation
 #### From PyPi
 ```
