@@ -1,9 +1,11 @@
+import json
 from fnmatch import fnmatch
 from json import JSONDecodeError
 
 from jsonpath_ng import jsonpath, parse
 from jsonschema import ValidationError, validate
 from stdl import fs
+from stdl.fs import bytes_readable
 from wrighter.plugin import Plugin, Request, Response, page
 
 
@@ -20,13 +22,9 @@ class JsonScraper(Plugin):
         self.url_pattern = url_pattern
         self.schema = schema
         self.jsonpath = parse(json_path) if json_path else None
-        self.data = []
+        self.data: list[dict] = []
 
-    def log(self, text: str):
-        if self.verbose:
-            print(text)
-
-    def is_schema_valid(self, data: dict):
+    def is_schema_valid(self, data: dict) -> bool:
         if self.schema is None:
             return True
         try:
@@ -49,13 +47,18 @@ class JsonScraper(Plugin):
         except (JSONDecodeError, UnicodeDecodeError):
             return
         if not self.is_schema_valid(data):
+            self.logger.debug(f"JSON response from '{response.url}' doesn't match provided schema")
             return
-        data = self.process_data(data)  # type:ignore
-        if data:
-            self.log(data)
+        json_data = self.process_data(data)  # type:ignore
+        if json_data:
+            self.logger.info(
+                f"Extracted data from '{response.url}'", size=bytes_readable(len(json.dumps(data)))
+            )
+            data = {"data": json_data, "url": response.url}
             self.data.append(data)
 
     def export_data(self, filepath: str) -> None:
+        self.logger.info(f"Exporting extracted data to '{filepath}'")
         fs.json_dump(self.data, filepath)
 
 
