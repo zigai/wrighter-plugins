@@ -1,10 +1,9 @@
-from playwright.sync_api import Page
-from playwright_stealth import StealthConfig, stealth_sync
-
+from playwright.async_api import Page
+from playwright_stealth import StealthConfig, stealth_async
 from wrighter.plugin import Plugin, context
 
 
-class SyncStealth(Plugin):
+class StealthAsync(Plugin):
     """Apply stealth to pages"""
 
     def __init__(self, stealth_config: StealthConfig | None = None) -> None:
@@ -12,8 +11,8 @@ class SyncStealth(Plugin):
         super().__init__()
 
     @context("on", "page")
-    def context_on_page(self, page: Page) -> None:
-        stealth_sync(page, config=self.stealth_config)
+    async def context_on_page(self, page: Page) -> None:
+        await stealth_async(page, config=self.stealth_config)
 
 
-__all__ = ["SyncStealth"]
+__all__ = ["StealthAsync"]
