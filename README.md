@@ -7,11 +7,12 @@
 
 Plugins for [Wrighter](https://github.com/zigai/wrighter)
 
+
 - Resource blocker
 - Network logger
 - JSON scraper
 - Stealth
-- and more ...
+- more...
 
 
 # Installation
