@@ -2,11 +2,11 @@ import json
 from fnmatch import fnmatch
 from json import JSONDecodeError
 
-from jsonpath_ng import jsonpath, parse
+from jsonpath_ng import parse
 from jsonschema import ValidationError, validate
 from stdl import fs
 from stdl.fs import bytes_readable
-from wrighter.plugin import Plugin, Request, Response, page
+from wrighter.plugin import Plugin, Response, page
 
 
 class JsonScraper(Plugin):
@@ -48,7 +48,7 @@ class JsonScraper(Plugin):
             return
         except Exception as e:
             self.logger.debug(
-                f"Unknown exception occured while parsing response as JSON", exception=e
+                "Unknown exception occured while parsing response as JSON", exception=e
             )
             return
 

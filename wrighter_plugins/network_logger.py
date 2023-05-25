@@ -22,7 +22,7 @@ def get_status(status_code: int, status_text: str | None = None):
 def get_body_info(response) -> str:
     try:
         body = response.body()
-    except:
+    except Exception:
         body = ""
     lenght = len(body)
     return bytes_readable(lenght) if body else "No body"
