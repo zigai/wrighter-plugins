@@ -52,17 +52,14 @@ class NetworkLogger(Plugin):
         self,
         response_codes: list[int] | None = None,
         requests: bool = False,
-        tablefmt: str = "plain",
     ) -> None:
         """
         Args:
             response_codes (list[int], optional): A list of HTTP status codes to log. If not provided, all status codes will be logged.
             requests (bool, optional): Whether to log requests. Defaults to `False`.
-            theme (dict, optional): A dictionary of colors to use for the log messages.
         """
         self.response_codes = response_codes or list(range(100, 600))
         self.requests = requests
-        self.tablefmt = tablefmt
         super().__init__()
 
     def _get_url(self, url: str, max_len: int, min_len: int = 10):
