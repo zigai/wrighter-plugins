@@ -1,11 +1,7 @@
-[build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "wrighter-plugins"
 version = "0.0.2"
-description = "Extended Python Standard Library"
+description = "Plugins for Wrighter"
 authors = [{ name = "Žiga Ivanšek", email = "ziga.ivansek@gmail.com" }]
 license = { file = "LICENSE.txt" }
 readme = "README.md"
@@ -84,3 +80,7 @@ exclude = [
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401", "E402"]
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
