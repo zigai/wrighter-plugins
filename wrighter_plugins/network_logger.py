@@ -15,14 +15,6 @@ def get_terminal_width():
     return length
 
 
-def colorize_status(code: int, status_text: str | None = None) -> str:
-    code_str = str(code)
-    if not code_str:
-        return "unknown"
-    value = code_str + (" " + status_text if status_text else "")
-    return colored(value, HTTP_STATUS_COLORS.get(code_str[0], FG.WHITE))
-
-
 def get_status(status_code: int, status_text: str | None = None):
     return str(status_code) + (" " + status_text if status_text else "")
 
