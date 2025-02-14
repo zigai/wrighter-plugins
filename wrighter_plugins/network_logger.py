@@ -1,7 +1,7 @@
 from os import get_terminal_size
 
 from stdl.fs import bytes_readable
-from stdl.str_u import BG, FG, ST, colored, terminal_link
+from stdl.st import BG, FG, ST, colored, terminal_link
 from wrighter.plugin import Plugin, Request, Response, page
 
 HTTP_STATUS_COLORS = {"2": BG.GREEN, "3": BG.BLUE, "4": BG.RED, "5": BG.YELLOW}
@@ -56,8 +56,8 @@ class NetworkLogger(Plugin):
 
     def _get_url(self, url: str, max_len: int, min_len: int = 10):
         if max_len < min_len:
-            return "\n" + terminal_link(url, color=FG.LIGHT_BLUE)
-        return terminal_link(url, label=clip_str(url, max_len), color=FG.LIGHT_BLUE)
+            return "\n" + terminal_link(url, color="light_blue")
+        return terminal_link(url, label=clip_str(url, max_len), color="light_blue")
 
     @page("on", "response")
     def page_on_response(self, response: Response) -> None:
