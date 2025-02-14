@@ -18,7 +18,6 @@ class ResourceBlocker(Plugin):
         self.url_pattern = url_pattern
         self.blocked_resoruces = blocked_resources
         self.verbose = verbose
-
         super().__init__()
 
     def __repr__(self) -> str:

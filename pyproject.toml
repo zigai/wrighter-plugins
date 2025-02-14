@@ -33,7 +33,7 @@ keywords = [
 ]
 
 dependencies = [
-  "wrighter==0.1.3",
+  "wrighter>=0.1.4",
   "stdl>=0.6.1",
   "jsonschema>=4.17.3",
   "jsonpath-ng>=1.5.3",
