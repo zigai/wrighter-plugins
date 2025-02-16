@@ -1,4 +1,3 @@
-from playwright.async_api import Page
 from playwright.sync_api import Page
 from playwright_stealth import Stealth
 from wrighter.plugin import Plugin, context
